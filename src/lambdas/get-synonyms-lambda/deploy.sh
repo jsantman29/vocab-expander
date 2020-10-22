@@ -1,0 +1,1 @@
+deploy get-synonyms-lambda

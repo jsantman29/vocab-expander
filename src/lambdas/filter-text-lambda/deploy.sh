@@ -1,0 +1,1 @@
+deploy filter-text-lambda
