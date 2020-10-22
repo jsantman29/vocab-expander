@@ -1,4 +1,8 @@
 
+export const isEmpty = (string) => {
+    return (!string || string.length === 0 || string.replace(/\s/g,"") === "")
+};
+
 /*  Counts the character in a given string. */
 export const countCharacters = (string) => {
     try {
@@ -88,7 +92,7 @@ export const sortWordFrequenciesByCount = (wordFrequencies, order) => {
         });
         return sortedWordFrequencies;
     } else {
-        throw 'Error: Valid order not specified.';
+        throw new Error('Valid order not specified.');
     }
 };
 
@@ -102,7 +106,7 @@ export const distributeArray = (array, numOfPartitions) => {
     
     // Initializes each partition as an array.
     for (let i = 0; i < numOfPartitions; i++) {
-        partitions[i] = new Array();
+        partitions[i] = [];
     }
 
     // Evenly distributes the items of the original array into an array of partitions.

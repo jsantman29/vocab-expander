@@ -15,7 +15,7 @@ def filter_text(text):
 
     for w in word_tokens:
         # Removes stop words and punctuation tokens.
-        if w not in common_words and w.isalpha():
+        if w not in common_words and w.isalpha() and len(w) > 2:
             filtered_words.append(w)
     
     filtered_string = " ".join(filtered_words)

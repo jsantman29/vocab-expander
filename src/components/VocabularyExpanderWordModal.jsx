@@ -29,7 +29,7 @@ const VocabularyExpanderWordModal = ({selectedWord, synonymsCache, setSynonymsCa
         let synonymsString = '';
         if (data !== undefined && data.length > 0) {
             data.forEach((value, index) => {
-                if(index != data.length - 1) {
+                if(index !== data.length - 1) {
                     synonymsString += value + ', '; 
                 } else {
                     synonymsString += value;

@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { countCharacters, countWords } from '../js/vocabulary_expander_library';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import { Button } from '@material-ui/core';
 
 const VocabularyExpanderToolTipButton = ({text}) => {
 
     const [ wordCount, setWordCount ] = useState(0);
     const [ characterCount, setCharacterCount ] = useState(0);
-    const [open, setOpen] = useState(false);
+
+    const [ tooltipOpen, setTooltipOpen ] = useState(false);
 
     useEffect( () => {
         setCharacterCount(countCharacters(text));
@@ -38,37 +39,36 @@ const VocabularyExpanderToolTipButton = ({text}) => {
     const toolTipStyles = useToolTipStyles();
     const buttonStyles = useButtonStyles();
 
-    const handleTooltipClose = () => {
-      setOpen(false);
-    };
-  
     const handleTooltipOpen = () => {
-      setOpen(true);
-    };
+        setTooltipOpen(true);
+    }
+
+    const handleTooltipClose = () => {
+        setTooltipOpen(false);
+    }
 
     const renderTooltip = () => {
         return (
             <ClickAwayListener onClickAway={handleTooltipClose}>
             <Tooltip
-                        classes={toolTipStyles}
-                        title={renderTooltipText()}
-                        open={open}
-                        onClose={handleTooltipClose}
-                        placement='top'
-                        disableFocusListener
-                        disableHoverListener
-                        disableTouchListener>
-                            <Button
-                            className={buttonStyles.button}
-                                onClick={handleTooltipOpen}
-                                size='large'>
-                                    <Typography>
-                                        INFO
-                                    </Typography>
-                                </Button>
-                        </Tooltip>
-                    </ClickAwayListener>
-                    
+                classes={toolTipStyles}
+                title={renderTooltipText()}
+                placement='top'
+                open={tooltipOpen}
+                onClose={handleTooltipClose}
+                disableHoverListener
+                disableFocusListener
+                disableTouchListener>
+                    <Button
+                        className={buttonStyles.button}
+                        onClick={handleTooltipOpen}
+                        size='large'>
+                            <Typography>
+                                INFO
+                            </Typography>
+                    </Button>
+            </Tooltip> 
+            </ClickAwayListener>
         )
     }
 
@@ -84,7 +84,7 @@ const VocabularyExpanderToolTipButton = ({text}) => {
 
     return (
         <>
-        {renderTooltip()}
+            {renderTooltip()}
         </>
     )
 }
