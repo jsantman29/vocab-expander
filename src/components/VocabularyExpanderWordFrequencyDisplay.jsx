@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { sortWordFrequenciesByCount, distributeArray } from '../js/vocabulary_expander_library';
 import VocabularyExpanderWordFrequencyList from './VocabularyExpanderWordFrequencyList';
 import '../VocabularyExpander.css';
@@ -6,16 +6,6 @@ import '../VocabularyExpander.css';
 import Hidden from '@material-ui/core/Hidden';
 
 function VocabularyExpanderWordFrequencyDisplay({wordFrequencies, setSelectedWord, setWordModalOpen}) {
-
-    const [ display, setDisplay ] = useState(undefined);
-
-    useEffect( () => {
-        try {
-            setDisplay(renderDisplay());
-        } catch {
-            setDisplay(undefined);
-        }
-    }, [wordFrequencies]);
 
     const buildLists = (numOfLists) => {
         const sortedWordFrequencies = sortWordFrequenciesByCount(wordFrequencies, 'Descending');
@@ -30,6 +20,15 @@ function VocabularyExpanderWordFrequencyDisplay({wordFrequencies, setSelectedWor
         }
         return lists;
     };
+
+    const validateWordFrequencies = () => {
+        try {
+            renderDisplay();
+            return true;
+        } catch {
+            return false;
+        }
+    }
 
     const renderDisplay = () => {
         return (
@@ -49,7 +48,7 @@ function VocabularyExpanderWordFrequencyDisplay({wordFrequencies, setSelectedWor
 
     return (
         <div className="wordFrequencyContainer">
-            {display}
+            {validateWordFrequencies() ? renderDisplay() : undefined}
         </div>
     );
 }

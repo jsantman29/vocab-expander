@@ -7,7 +7,7 @@ import { getWordFrequencies, getWords, isEmpty } from '../js/vocabulary_expander
 import { postFilteredText } from '../js/textAPI_library';
 import VocabularyExpanderToolTipButton from './VocabularyExpanderToolTipButton';
 
-const VocabularyExpanderButtonContainer = ({text, setWordFrequencies, handleClear}) => {
+const VocabularyExpanderButtonContainer = ({text, setWordFrequencies, setIsProcessing, handleClear}) => {
 
     const [ submitButtonDisabled, setSubmitButtonDisabled ] = useState(true);
 
@@ -35,6 +35,7 @@ const VocabularyExpanderButtonContainer = ({text, setWordFrequencies, handleClea
 
     const generateWordFrequencies = () => {
         let words = [];
+        setIsProcessing(true);
         postFilteredText(text)
             .then((response) => {
                 return response.json();
@@ -43,6 +44,7 @@ const VocabularyExpanderButtonContainer = ({text, setWordFrequencies, handleClea
                 words = getWords(responseJson.body);
                 setWordFrequencies(getWordFrequencies(words));
             });
+        setIsProcessing(false);
     };
 
     const buttonStyles = useButtonStyles();

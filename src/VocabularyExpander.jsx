@@ -20,6 +20,7 @@ const VocabularyExpander = () => {
     const [ selectedWord, setSelectedWord ] = useState(undefined);
     const [ isModalOpen, setIsModalOpen ] = useState(false);
     const [ synonymsCache, setSynonymsCache ] = useState(new Map());
+    const [ isProcessing, setIsProcessing ] = useState(false);
 
     const handleClear = () => {
         setText('');
@@ -57,11 +58,14 @@ const VocabularyExpander = () => {
                 </VocabularyExpanderHeader>
                 <VocabularyExpanderTextBox
                     text={text}
-                    setText={setText} 
+                    setText={setText}
+                    isProcessing={isProcessing}
                 />
                 <VocabularyExpanderButtonContainer
                     text={text}
                     setWordFrequencies={setWordFrequencies}
+                    isProcessing={isProcessing}
+                    setIsProcessing={setIsProcessing}
                     handleClear={handleClear}
                 />
                 <VocabularyExpanderWordFrequencyDisplay
